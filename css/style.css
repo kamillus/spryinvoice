@@ -1,0 +1,143 @@
+pre {
+	background-color: rgba(255, 255, 255, 0.0);
+	border: 0;
+	margin:0;
+	word-wrap: normal;
+	white-space:normal;
+	word-break:normal;
+	font-size: 1.2em;
+	padding: 1px 1px 1px 1px;
+	font-family: "News Cycle","Arial Narrow Bold",sans-serif;
+}
+
+p
+{
+	font-family: "News Cycle","Arial Narrow Bold",sans-serif;
+}
+
+table
+{
+	margin-top: 40px;
+}
+
+table, table td
+{
+	border: 3px solid #eee;
+}
+
+table th
+{
+	border: 3px solid #999;
+	background-color: #aaa;
+}
+
+
+.number
+{
+	text-align: right;
+}
+
+.totals
+{
+	border: 3px solid #999;
+	background-color: #aaa;
+	text-align: right;	
+}
+
+.rightalign
+{
+	text-align:right;
+}
+
+body{
+	background-image: url(/img/mochaGrunge.png);
+	padding-bottom: 60px;
+	font-size: 0.8em;
+}
+
+hr
+{
+	border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc);
+}
+
+.container
+{
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:30px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 30px;
+	padding-right: 30px;
+	background-color:rgba(255, 255, 255, 1);
+	background-image: url(/img/lightpaperfibers.png);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	
+	-moz-box-shadow: 0 0 2px 2px #888;
+	-webkit-box-shadow: 0 0 2px 2px#888;
+	box-shadow: 0 0 2px 2px #888;
+	
+	
+	height: 1400px;
+}
+
+pre.header
+{
+	font-size: 1.5em;
+	font-weight: 800;
+}
+
+table
+{
+	width: 100%;
+}
+
+.invoice_message, .banner
+{
+
+}
+
+.banner
+{
+	margin-top: 40px;
+}
+
+ul
+{
+	margin-top:20px;
+}
+
+.pagination
+{
+	width: 960px;
+	margin-left:auto;
+	margin-right:auto;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-bottom: -50px;
+}
+
+@media print
+{
+   .hero-unit
+     {
+     display:none;
+   }
+   
+   .pagination
+   {
+   display:none;
+   }
+   
+   .btn
+   {
+   display:none;
+   }
+}

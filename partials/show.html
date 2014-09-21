@@ -1,0 +1,134 @@
+<div ng-controller="ListController">
+</div>
+
+<div class="row">
+  <div class="span8">
+  </div>
+  <div class="span4">
+  	<div class="dropdown">
+  <!-- Link or button to toggle dropdown -->
+	  <div style="float:right">
+	  	<a class="dropdown-toggle btn btn-success" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">Invoice Actions</a>
+	  	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		    <li><a tabindex="-1" href="#" ng-click="getPermalink()">Get Invoice URL (Permalink)</a></li>
+		    <li><a tabindex="-1" href="#" ng-click="getPDFLink()">Get PDF link</a></li>
+		    <li><a tabindex="-1" href="#" ng-click="downloadPDF()">Download PDF</a></li>
+		    <li><a tabindex="-1" href="#" ng-click="removeInvoice()">Remove invoice</a></li>
+			<li><a tabindex="-1" href="#" ng-click="duplicateInvoice()">Duplicate invoice</a></li>
+		</ul>
+	  	<!--a href="#" ng-click="removeInvoice()"><i class="icon-search icon-remove"></i></a-->
+	  </div>	  
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">
+	  
+  </div>
+  <div class="span4">
+  	<pre contenteditable="true" ng-model="invoice.company_name" ng-bind-html-unsafe="invoice.company_name" class="header"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_street" ng-bind-html-unsafe="invoice.company_street"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_street_second" ng-bind-html-unsafe="invoice.company_street_second"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_city" ng-bind-html-unsafe="invoice.company_city"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_phone" ng-bind-html-unsafe="invoice.company_phone"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_email" ng-bind-html-unsafe="invoice.company_email"></pre>
+	<pre contenteditable="true" ng-model="invoice.company_number" ng-bind-html-unsafe="invoice.company_number"></pre>
+	</p>
+  </div>
+  <div class="span6">
+	  <h1 contenteditable="true" class="rightalign">Invoice</h1>
+	  <p class="rightalign">Date: <pre contenteditable="true" ng-model="invoice.invoice_date" ng-bind-html-unsafe="invoice.invoice_date" class="rightalign"></pre></p>
+	  <p class="rightalign">Invoice #: <pre contenteditable="true" ng-model="invoice.invoice_number" ng-bind-html-unsafe="invoice.invoice_number" class="rightalign"></pre></p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="span2">
+	  <h3>Bill To:</h3>
+  </div>
+  <div class="span4">
+  	<pre contenteditable="true" ng-model="invoice.receiver_name" ng-bind-html-unsafe="invoice.receiver_name" class="header"></pre>
+	<pre contenteditable="true" ng-model="invoice.receiver_street" ng-bind-html-unsafe="invoice.receiver_street"></pre>
+	<pre contenteditable="true" ng-model="invoice.receiver_street_second" ng-bind-html-unsafe="invoice.receiver_street_second"></pre>
+	<pre contenteditable="true" ng-model="invoice.receiver_city" ng-bind-html-unsafe="invoice.receiver_city"></pre>
+	<pre contenteditable="true" ng-model="invoice.receiver_phone" ng-bind-html-unsafe="invoice.receiver_phone"></pre>
+	<pre contenteditable="true" ng-model="invoice.receiver_email" ng-bind-html-unsafe="invoice.receiver_email"></pre>
+
+  </div>
+  <div class="span6">
+	  <pre class="rightalign" contenteditable="true" ng-model="invoice.receiver_extra" ng-bind-html-unsafe="invoice.receiver_extra"></pre>
+  </div>
+</div>
+<hr/>
+<div class="row">
+  <div class="span2">
+  </div>
+  <div class="span8">
+	  <div class="invoice_message">
+		  <pre contenteditable="true" ng-model="invoice.invoice_message" ng-bind-html-unsafe="invoice.invoice_message">
+		  </pre>
+	  </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+	  <table>
+		  <tr>
+			  <th><pre contenteditable="true" ng-model="invoice.invoice_titles.number" ng-bind-html-unsafe="invoice.invoice_titles.number"></pre></th>
+			  <th><pre contenteditable="true" ng-model="invoice.invoice_titles.description" ng-bind-html-unsafe="invoice.invoice_titles.description"></pre></th>
+			  <th><pre contenteditable="true" ng-model="invoice.invoice_titles.quantity" ng-bind-html-unsafe="invoice.invoice_titles.quantity"></pre></th>
+			  <th><pre contenteditable="true" ng-model="invoice.invoice_titles.price" ng-bind-html-unsafe="invoice.invoice_titles.price"></pre></th>
+			  <th><pre contenteditable="true" ng-model="invoice.invoice_titles.total" ng-bind-html-unsafe="invoice.invoice_titles.total"></pre></th>
+		  </tr>
+		  <tr ng-repeat="(key, val) in invoice.invoice_amounts">
+			  <td><pre contenteditable="true" ng-model="invoice.invoice_amounts[key].number" ng-bind-html-unsafe="invoice.invoice_amounts[key].number"></pre></td>
+			  <td><pre contenteditable="true" ng-model="invoice.invoice_amounts[key].description" ng-bind-html-unsafe="invoice.invoice_amounts[key].description"></pre></td>
+			  <td><pre contenteditable="true" ng-model="invoice.invoice_amounts[key].quantity" ng-bind-html-unsafe="invoice.invoice_amounts[key].quantity" class="number"></pre></td>
+			  <td><pre contenteditable="true" ng-model="invoice.invoice_amounts[key].price" ng-bind-html-unsafe="invoice.invoice_amounts[key].price" class="number"></pre></td>
+			  <td><pre class="number">{{getRowTotal(key)}}</pre></td>
+		  </tr>
+		  <tr>
+			  <td class="totals" colspan=3><i class="icon-plus-sign" ng-click="addInvoiceRow()"></i><i class="icon-minus-sign" ng-click="removeInvoiceRow()"></i></td>
+			  <td class="totals">Total (Before Tax):</td>
+			  <td class="totals"><pre>{{getSubtotal()}}</pre></td>
+		  </tr>
+		  <tr>
+			  <td class="totals" colspan=3></td>
+			  <td class="totals">Tax</td>
+			  <td class="totals"><pre contenteditable="true" ng-model="invoice.invoice_tax" ng-bind-html-unsafe="invoice.invoice_tax" class="number"></pre></td>
+		  </tr>				  
+		  <tr>
+			  <td class="totals" colspan=3></td>
+			  <td class="totals">Total (After Tax):</td>
+			  <td class="totals"><pre>{{getTotal()}}</pre></td>
+		  </tr>	
+	  </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">
+  </div>
+  <div class="span8">
+	  <div class="banner">
+	     <pre contenteditable="true" ng-model="invoice.invoice_banner" ng-bind-html-unsafe="invoice.invoice_banner">
+	     </pre>
+	  </div>
+  </div>
+</div>
+<div style="margin-top:40px"></div>
+<div class="row" >
+	<div class="span2">
+	</div>
+	<div class="span10">
+		<a class="btn btn-primary btn-large" href="#" ng-click="downloadPDF()">
+	      Save Invoice PDF
+	    </a>
+        <a class="btn btn-primary btn-large" href="#" ng-click="getPermalink()">
+	      Link to this Invoice
+	    </a>
+	</div>
+</div>

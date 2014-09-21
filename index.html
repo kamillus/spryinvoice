@@ -1,0 +1,50 @@
+<!doctype html>
+<html ng-app="invoice">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/invoice.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/bootswatch/2.3.0/journal/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+    <meta name="google-site-verification" content="VCMh5j6kfXQ1Czy64TzHZSuSzLL9WR3g87GPOmkjVbg" />
+    <title>SpryInvoice - No Signup quick invoices</title>
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.videosmedia.com/" : "http://piwik.videosmedia.com/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 5);
+    piwikTracker.addDownloadExtensions("php")
+    piwikTracker.setRequestMethod('POST');
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://piwik.videosmedia.com/piwik.php?idsite=5" style="border:0" alt="" /></p></noscript>
+    
+    
+  </head>
+  <body>
+	
+	<div class="hero-unit">
+	  <h1>SpryInvoice</h1>
+	  <p>Create, print, and save business invoices online, right now, without sign up and other nonsense. Just modify the form below and generate your invoice. The invoices are automatically saved so you can come back and modify them at any time. <a class="btn btn-success btn-large" href="#" onclick="$('.hero-unit').hide(1000)">Start Now</a>
+	  </p><a href="/blog">Blog</a>
+	</div>
+	<div class="pagination">
+		<div class="row">
+		  <div class="span12">
+			<div ng-controller="ListController">
+				<div class="btn-group">
+					<a class="btn" ng-repeat="(key,val) in invoices" ng:class="{true:'btn-info', false:''}[val.content.timestamp==activeKey]" ng-click="loadInvoice(val.content.timestamp)">#{{val.content.invoice_number}}<br/>{{val.content.receiver_name}}</a>
+					<a class="btn" href="#" ng-click="createNewInvoice()">New Tab<br/><i class="icon-search icon-plus-sign"></i></a>
+				</div>		
+			</div>
+		  </div>
+		</div>
+	</div>
+    <div class="container" ng-view></div>
+  </body>
+</html>
