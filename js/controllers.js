@@ -18,13 +18,19 @@ function ListController($scope, $routeParams, sharedService) {
 		
 		invoices = [];
 		
-		for (var key in window.localStorage){
+		for (var i = 0; i < localStorage.length; i++){
 		   invoices.push(
 			   {
-				   key: key, 
-				   content: JSON.parse(window.localStorage[key])
+				   key: window.localStorage.key(i), 
+				   content: JSON.parse(window.localStorage.getItem(window.localStorage.key(i)))
 			   }
-		   )
+		   )						
+		}
+
+
+		for (var key in window.localStorage){
+console.log(key)
+
 		}
 		return invoices;
 	}
@@ -56,12 +62,17 @@ function ShowController($scope, $routeParams, sharedService, $http) {
     if(length == 0)
         current_invoice = null;
     else
+    {
         current_invoice = JSON.parse(window.localStorage.getItem(window.localStorage.key(window.localStorage.length-1)));
-	
+    	$('.tabs').show(); $('.hero-unit').hide(1000);
+    }
+    
 	default_invoice = function () {		
 		return {
 			filename: null,
             permalink: null,
+            logo: null,
+            invoice_type: "Invoice",
 			timestamp: new Date().getTime(),
 			company_name: "Your Company Name",
 			company_street: "123 Your Street",
@@ -71,7 +82,7 @@ function ShowController($scope, $routeParams, sharedService, $http) {
 			company_email: "youremail@yourcompany.com",
 			company_number: "Business Number / Tax Number",
 		
-			invoice_date: d.getFullYear() + "/" + d.getMonth() + "/" + d.getDay(),
+			invoice_date: d.getFullYear() + "/" + (1+parseInt(d.getMonth())) + "/" + d.getDate(),
 			invoice_number: Math.floor(Math.random()*10000000),
 		
 			receiver_name: "Receiver Name",
@@ -165,6 +176,18 @@ function ShowController($scope, $routeParams, sharedService, $http) {
 	$scope.removeInvoiceRow = function()
 	{
 		$scope.invoice.invoice_amounts.pop()
+	}
+	
+	$scope.populateImage = function()
+	{
+		old_url = "http://";
+		
+		if($scope.invoice.logo != null)
+			old_url = $scope.invoice.logo;
+			
+		url = window.prompt("Enter the URL directly to your image. Hint: You can upload your logos to imgur.com and then paste the link here",old_url);
+		if (url !=null && url!= "")
+			$scope.invoice.logo = url;
 	}	
 
 
